@@ -8,15 +8,66 @@ import datetime
 import os
 from .ml_utils import load_priority_model_and_encoder, predict_priority
 
+from .ml_handlers.sop_logic import process_sop_data
+# ✅ Import global result
+from .ml_handlers.sop_logic import process_sop_data, SOP_PROCESSED_RESULT
+
+
+# Global variable to store the last processed SOP result
+SOP_PROCESSED_RESULT = None
+
 
 # Optional if using ML later
 # from .ml_utils import load_model, predict_dispatch
 from .file_handler import process_uploaded_csv, update_master_file
 
 
+
 # ✅ Serve HTML frontend
 def index(request):
     return render(request, 'index.html')
+
+
+
+
+
+# ✅ SOP HANDLER CLASS supporting POST (submit) and GET (fetch result)
+class SOPView(APIView):
+
+    def post(self, request):
+        """
+        This POST route receives SOP data (columns + data) from frontend,
+        processes it using the Q-table RL model, and stores the result.
+        """
+        payload = request.data
+        print("📥 /sop POST request received")
+
+        result, code = process_sop_data(payload)
+
+        return Response(result, status=code)
+
+    def get(self, request):
+        """
+        This GET route returns the latest processed SOP result.
+        Frontend can call this route after POST to retrieve prediction output.
+        """
+        if SOP_PROCESSED_RESULT:
+            print("📤 /sop GET request served successfully")
+            return Response(SOP_PROCESSED_RESULT, status=200)
+
+        return Response({"error": "No processed result available"}, status=404)
+
+
+# SOP HANDLER 
+class SOPView(APIView):
+    def post(self, request):
+        payload = request.data
+        print("📥 /sop data received")
+
+        result, code = process_sop_data(payload)
+        return Response(result, status=code)
+
+
 
 class PredictView(APIView):
     def post(self, request):
