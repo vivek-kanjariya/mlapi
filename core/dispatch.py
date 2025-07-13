@@ -79,10 +79,11 @@ class DispatchPlannerView(APIView):
             print("✅ Load type logic applied.")
 
             # === Vehicle Pool Initialization ===
+            defined_vehicles = 4
             vehicle_pool = []
             counter = 1
             for v in base_vehicles:
-                for _ in range(2):
+                for _ in range(defined_vehicles):
                     vehicle_pool.append({
                         "Vehicle_ID": f"{v['Vehicle_Type'].upper()}_{counter:03d}",
                         "Vehicle_Type": v["Vehicle_Type"],
