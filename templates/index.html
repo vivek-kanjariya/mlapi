@@ -2,10 +2,53 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Django + React (Vite)</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Backend Server Running | Django + React</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      background: #0f172a;
+      color: #f1f5f9;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+    }
+
+    h1 {
+      font-size: 2.5rem;
+      background: linear-gradient(to right, #38bdf8, #4ade80);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    p {
+      font-size: 1.2rem;
+      color: #94a3b8;
+      margin-top: 0.5rem;
+    }
+
+    .status {
+      margin-top: 2rem;
+      padding: 1rem 2rem;
+      background-color: #1e293b;
+      border: 1px solid #334155;
+      border-radius: 8px;
+      font-family: monospace;
+      font-size: 0.95rem;
+    }
+  </style>
 </head>
 <body>
-  <h1>Static File Served at "/"</h1>
-  <p>If you see this, Django static serving works.</p>
+  <h1>🚀 Backend is Live</h1>
+  <p>Django is serving static files successfully.</p>
+  <div class="status">
+    Endpoint: <strong>/</strong> <br />
+    Status: <span style="color: #22c55e;">200 OK</span> <br />
+    Framework: Django + Vite (React)
+  </div>
 </body>
 </html>
